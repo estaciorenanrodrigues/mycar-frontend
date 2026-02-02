@@ -42,6 +42,7 @@ Para iniciar o servidor de desenvolvimento:
 ```bash
 npm start
 ```
+Para Acessar na tela de login, usar qualquer email e senha, auth está estático.
 
 A aplicação estará disponível em `http://localhost:4200`
 
