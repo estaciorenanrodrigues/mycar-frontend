@@ -1,0 +1,22 @@
+<div class="veiculos-container">
+  <app-navbar [title]="'MyCar - Gestão de Veículos'" [icon]="'directions_car'"></app-navbar>
+  <div class="content">
+    <div class="header-section">
+      <div class="header-title">
+        <div>
+          <h1>Listagem de Veículos</h1>
+          <p>Total de veículos: {{ veiculos.pagination.totalItems}}</p>
+        </div>
+        <button mat-raised-button color="primary" (click)="createVeiculo()">
+          <mat-icon>add</mat-icon>
+          Novo Veículo
+        </button>
+      </div>
+    </div>
+    <app-table-list-vehicles [isLoading]="isLoading" [veiculos]="veiculos" [getCorHex]="getCorHex"
+      [pageIndex]="pageIndex" [pageSize]="pageSize" (editVeiculoEvent)="editVeiculo($event)"
+      (deleteVeiculoEvent)="deleteVeiculo($event)" (pageChangeEvent)="onPageChange($event)"
+      (sortChangeEvent)="onSortChange($event.sortBy, $event.sortOrder)">
+    </app-table-list-vehicles>
+  </div>
+</div>

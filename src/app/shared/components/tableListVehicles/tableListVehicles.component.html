@@ -1,0 +1,69 @@
+<div class="table-container">
+  <table mat-table [dataSource]="veiculos.data" class="veiculos-table" matSort>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="id">ID</th>
+      <td mat-cell *matCellDef="let veiculo">{{ veiculo?.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="marca">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="marca">Marca</th>
+      <td mat-cell *matCellDef="let veiculo">{{ veiculo?.marca }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="modelo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="modelo">Modelo</th>
+      <td mat-cell *matCellDef="let veiculo">{{ veiculo?.modelo }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="ano">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="ano">Ano</th>
+      <td mat-cell *matCellDef="let veiculo">{{ veiculo?.ano }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="placa">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="placa">Placa</th>
+      <td mat-cell *matCellDef="let veiculo">
+        <span class="placa-badge">{{ veiculo?.placa }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cor">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="renavam">Renavam</th>
+      <td mat-cell *matCellDef="let veiculo">
+        <span class="cor-badge" [style.background-color]="getCorHex(veiculo?.renavam)">{{ veiculo?.renavam }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="tipo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="chassi">Chassi</th>
+      <td mat-cell *matCellDef="let veiculo">
+        <span class="cor-badge" [style.background-color]="getCorHex(veiculo?.renavam)">{{ veiculo?.chassi }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="editar">
+      <th mat-header-cell *matHeaderCellDef>Editar</th>
+      <td mat-cell *matCellDef="let veiculo">
+        <button mat-icon-button color="primary" (click)="editVeiculoEvent.emit(veiculo.id)" matTooltip="Editar veículo">
+          <mat-icon class="edit-icon">edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="excluir">
+      <th mat-header-cell *matHeaderCellDef>Excluir</th>
+      <td mat-cell *matCellDef="let veiculo">
+        <button mat-icon-button color="warn" (click)="deleteVeiculoEvent.emit(veiculo.id)" matTooltip="Excluir veículo">
+          <mat-icon class="delete-icon">delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [length]="veiculos.pagination.totalItems" [pageSizeOptions]="[5, 10, 20, 50]" [pageSize]="pageSize"
+    [pageIndex]="pageIndex" (page)="pageChangeEvent.emit($event)" showFirstLastButtons>
+  </mat-paginator>
+</div>

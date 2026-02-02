@@ -1,0 +1,88 @@
+<div class="veiculo-create-container">
+  <app-navbar [title]="'MyCar - Cadastrar Veículo'" [icon]="'add_circle'"></app-navbar>
+  <div class="content">
+    <div class="header-section">
+      <h1>Cadastrar Novo Veículo</h1>
+      <p>Preencha os dados do veículo para cadastrá-lo no sistema</p>
+    </div>
+
+    <div class="form-container">
+      <mat-card>
+        <form [formGroup]="veiculoForm" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Marca</mat-label>
+              <input matInput formControlName="marca" placeholder="Ex: Toyota">
+              <mat-icon matPrefix>directions_car</mat-icon>
+              <mat-error *ngIf="veiculoForm.get('marca')?.invalid && veiculoForm.get('marca')?.touched">
+                {{ getErrorMessage('marca') }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Modelo</mat-label>
+              <input matInput formControlName="modelo" placeholder="Ex: Corolla">
+              <mat-icon matPrefix>label</mat-icon>
+              <mat-error *ngIf="veiculoForm.get('modelo')?.invalid && veiculoForm.get('modelo')?.touched">
+                {{ getErrorMessage('modelo') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Ano</mat-label>
+              <input matInput type="number" formControlName="ano" placeholder="Ex: 2023">
+              <mat-icon matPrefix>calendar_today</mat-icon>
+              <mat-error *ngIf="veiculoForm.get('ano')?.invalid && veiculoForm.get('ano')?.touched">
+                {{ getErrorMessage('ano') }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Placa</mat-label>
+              <input matInput formControlName="placa" placeholder="Ex: ABC1234" maxlength="7" (input)="veiculoForm.get('placa')?.setValue($any($event.target).value.toUpperCase())">
+              <mat-icon matPrefix>confirmation_number</mat-icon>
+              <mat-error *ngIf="veiculoForm.get('placa')?.invalid && veiculoForm.get('placa')?.touched">
+                {{ getErrorMessage('placa') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Chassi</mat-label>
+              <input matInput formControlName="chassi" placeholder="Ex: 9BW12345678901234" maxlength="17" (input)="veiculoForm.get('chassi')?.setValue($any($event.target).value.toUpperCase())">
+              <mat-icon matPrefix>vpn_key</mat-icon>
+              <mat-error *ngIf="veiculoForm.get('chassi')?.invalid && veiculoForm.get('chassi')?.touched">
+                {{ getErrorMessage('chassi') }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Renavam</mat-label>
+              <input matInput formControlName="renavam" placeholder="Ex: 12345678901" maxlength="11">
+              <mat-icon matPrefix>description</mat-icon>
+              <mat-error *ngIf="veiculoForm.get('renavam')?.invalid && veiculoForm.get('renavam')?.touched">
+                {{ getErrorMessage('renavam') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-actions">
+            <button mat-raised-button type="button" color="warn" (click)="cancel()" [disabled]="isSaving">
+              <mat-icon>cancel</mat-icon>
+              Cancelar
+            </button>
+            <button mat-raised-button type="submit" color="primary" [disabled]="veiculoForm.invalid || isSaving">
+              <mat-icon *ngIf="!isSaving">add</mat-icon>
+              <mat-spinner *ngIf="isSaving" diameter="20" class="button-spinner"></mat-spinner>
+              {{ isSaving ? 'Cadastrando...' : 'Cadastrar' }}
+            </button>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
